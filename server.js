@@ -1,6 +1,8 @@
 
 
 var express = require('express');
+const path = require('path');
+
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
@@ -25,6 +27,9 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("frontend/build"));
   console.log("production");
 }
+app.get('*', function (request, response){
+  response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
+});
 
 app.listen(port);
 
