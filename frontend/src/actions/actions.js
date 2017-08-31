@@ -57,7 +57,7 @@ export function fetchDiscussion(discussionId) {
   return (dispatch) => {
 
     dispatch(requestDiscussion(discussionId));
-    return fetch(`http://localhost:3000/api/discussion/${discussionId}`)
+    return fetch(`/api/discussion/${discussionId}`)
       .then(
 
         response => {
@@ -95,7 +95,7 @@ export function postMessage(message, parentId, discussionId) {
 
     let fetchSuccesful;
 
-    return fetch(`http://localhost:3000/api/discussion/${discussionId}`, {
+    return fetch(`/api/discussion/${discussionId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
