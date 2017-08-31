@@ -21,6 +21,11 @@ app.use(bodyParser.json());
 
 routes(app);
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("frontend/build"));
+  console.log("production");
+}
+
 app.listen(port);
 
 console.log('Server running on port ' + port);
