@@ -28,7 +28,7 @@ if (process.env.NODE_ENV === "production") {
   console.log("production");
 }
 app.get('*', function (request, response){
-  response.sendFile(path.resolve('public', 'index.html'))
+  response.sendFile(path.resolve('/frontend/build', 'index.html'))
 });
 
 app.listen(port);
