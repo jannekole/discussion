@@ -1,5 +1,5 @@
 # discussion
-Simple anonymous discussion website with backend. First attempt at Redux. React/Redux/Node/MongoDB
+Simple anonymous discussion site with backend. First attempt at Redux. React/Redux/Node/MongoDB
 
 Add any string after the url to start your own discussion, for example: https://tree-discussion.herokuapp.com/testi1
 
