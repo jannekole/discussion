@@ -4,9 +4,15 @@ import { receiveMessage, postMessage, changeInput , toggleReplyBoxVisibility} fr
 import Message from '../components/Message';
 
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+
+  let message = state.discussion.messages.find(message => (message._id === ownProps.parentId));
+  if (!message) {
+    message = ownProps.message;
+  }
 
   return {
+    message,
     messages: state.discussion.messages,
     isFetching: state.page.isFetching
   };

@@ -7,9 +7,6 @@ class Message extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      fieldText: ''
-    };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -23,33 +20,36 @@ class Message extends Component {
     this.setState({
       [event.target.name]: event.target.value
     });
-    this.props.changeInput(this.props.parent, event.target.value);
+    this.props.changeInput(this.props.message._id, event.target.value);
   }
 
   handleSubmit(e) {
-    //this.props.addMessage(this.state.fieldText, this.props.parent);
-    this.props.postMessage(this.props.messages.find((message) => message._id === this.props.parent).input, this.props.parent, this.props.discussionId);
+    this.props.postMessage(
+      this.props.message.input,
+      this.props.message._id,
+      this.props.discussionId
+    );
     e.preventDefault();
   }
 
   handleReplyBtnClick(e) {
-    this.props.toggleReplyBoxVisibility(this.props.parent, !this.props.messages.find((message) => message._id === this.props.parent).showReplyBox);
+    this.props.toggleReplyBoxVisibility(this.props.message._id, !this.props.message.showReplyBox);
     e.preventDefault();
   }
 
   render() {
 
     let filteredList = this.props.messages.filter((message) => {
-      return message.parent === this.props.parent;
+      return message.parent === this.props.message._id;
     });
 
     var textList = filteredList.map((message, i) => {
-      return <li className="messageText" key={i}>{message.text}
+      return <li  key={i}>
         <MessageListContainer
         discussionId={this.props.discussionId}
-        parent={message._id}
-        postMessage={this.props.postMessage}
-        addMessage={this.props.addMessage}
+        message={message}
+        postMessage={this.props.postMessage} //function
+
         />
       </li>;
     }).reverse();
@@ -58,7 +58,7 @@ class Message extends Component {
 
     let replyButton = <a href='#' className="replyButton" onClick={this.handleReplyBtnClick} >{replyText}</a>;
 
-    let thisMessage = this.props.messages.find((message => message._id === this.props.parent));
+    let thisMessage = this.props.message;
     let isLoading = thisMessage.waitingMessageResponse;
     let notification = thisMessage.notification;
     let input = thisMessage.input || "";
@@ -87,6 +87,7 @@ class Message extends Component {
     if (!this.props.isFetching){
       return (
         <div className="message">
+          <div className="messageText">{thisMessage.text}</div>
           {replyButton}
           {replyForm}
 
@@ -104,13 +105,14 @@ class Message extends Component {
 export default Message;
 
 Message.propTypes = {
+  message: PropTypes.object.isRequired,
   messages: PropTypes.array.isRequired,
-  parent: PropTypes.string.isRequired,
+  parentId: PropTypes.string,
   postMessage: PropTypes.func.isRequired,
   changeInput: PropTypes.func.isRequired,
   toggleReplyBoxVisibility: PropTypes.func.isRequired,
   discussionId: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  replyText:  PropTypes.string.isRequired
+  replyText:  PropTypes.string
 
 };

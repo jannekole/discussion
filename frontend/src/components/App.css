@@ -5,12 +5,12 @@
   padding: 0px;
   margin: 0px;
 }
- .messageText, .rootMessage,body{
+ .message, .rootMessage,body{
 
 
 }
 
-.messageText, .rootMessage{
+.message{
   display: block;
   border: 1px solid black;
 max-width: 900px;

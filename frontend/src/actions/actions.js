@@ -89,11 +89,17 @@ export const sendMessage = (parentId) => {
 };
 
 export function postMessage(message, parentId, discussionId) {
-  return (dispatch) => {
+
+  return (dispatch, getState) => {
+
+    console.log('fetch');
+    //let messageText = state.discussion.messages.find(message => (message._id === parentId));
+    console.log('fetchPost');
+
 
     dispatch(sendMessage(parentId));
 
-    let fetchSuccesful;
+
 
     return fetch(`/api/discussion/${discussionId}`, {
       method: 'POST',

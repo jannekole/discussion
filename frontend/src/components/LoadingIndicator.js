@@ -10,11 +10,11 @@ class LoadingIndicator extends Component {
   }
 
   render() {
-
+    var loadingText = "Loading... (It might take a while for the database to start if this site hasn't been used in a while)";
     if (this.props.isFetching) {
       return (
         <div>
-          Loading...
+          {loadingText}
         </div>
       );
     } else {
